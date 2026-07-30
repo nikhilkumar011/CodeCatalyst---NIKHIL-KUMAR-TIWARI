@@ -100,13 +100,7 @@ export default function Sidebar() {
                     History
                 </Link>
 
-                <a
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium text-[#565C6B] dark:text-[#A8AEBB] transition-colors hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-[#1A1D24] dark:hover:text-[#F2F4F8]"
-                >
-                    <Settings size={17} className="text-[#6B7180]" />
-                    Settings
-                </a>
+              
             </nav>
 
             {/* Bottom: logout */}
