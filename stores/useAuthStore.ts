@@ -14,7 +14,7 @@ export const useAuthStore = create((set, get) => ({
                 email,
                 password,
                 name,
-                callbackURL: "/root",
+                callbackURL: "/landingPage",
             },
             {
                 onRequest: (ctx) => {
@@ -23,7 +23,7 @@ export const useAuthStore = create((set, get) => ({
                 onSuccess: (ctx) => {
                     toast.dismiss(loadingToast)
                     toast.success("Signed Up Successfully!");
-                    redirect('/root')
+                    redirect('/landingPage')
                 },
                 onError: (ctx) => {
                     toast.dismiss(loadingToast)
@@ -42,7 +42,7 @@ export const useAuthStore = create((set, get) => ({
             {
                 email,
                 password,
-                callbackURL: "/root",
+                callbackURL: "/landingPage",
                 rememberMe: false,
             },
             {
@@ -53,7 +53,7 @@ export const useAuthStore = create((set, get) => ({
                     toast.dismiss(loadingToast);
                     toast.success("Logged In Successfully!");
 
-                    redirect('/root')
+                    redirect('/landingPage')
 
                 },
                 onError: (ctx) => {

@@ -58,15 +58,15 @@ const Page = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#0B0E14] px-8 py-10 text-white">
+        <div className="min-h-screen bg-white dark:bg-[#0B0E14] px-8 py-10 text-[#1A1D24] dark:text-white">
             <div className="mx-auto max-w-3xl">
                 {/* Header */}
                 <div className="mb-8 flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-semibold tracking-tight text-[#F2F4F8]">
+                        <h1 className="text-2xl font-semibold tracking-tight text-[#1A1D24] dark:text-[#F2F4F8]">
                             Your files
                         </h1>
-                        <p className="mt-1 text-[13px] text-[#6B7180]">
+                        <p className="mt-1 text-[13px] text-[#6B7180] dark:text-[#6B7180]">
                             {loading ? 'Loading…' : `${data.length} file${data.length === 1 ? '' : 's'} uploaded`}
                         </p>
                     </div>
@@ -85,7 +85,7 @@ const Page = () => {
                         {[...Array(4)].map((_, i) => (
                             <div
                                 key={i}
-                                className="h-[68px] animate-pulse rounded-2xl border border-white/[0.06] bg-white/[0.03]"
+                                className="h-[68px] animate-pulse rounded-2xl border border-black/[0.06] dark:border-white/[0.06] bg-black/[0.03] dark:bg-white/[0.03]"
                             />
                         ))}
                     </div>
@@ -93,7 +93,7 @@ const Page = () => {
 
                 {/* Error state */}
                 {!loading && error && (
-                    <div className="flex items-center gap-3 rounded-2xl border border-rose-500/20 bg-rose-500/[0.06] px-5 py-4 text-[13.5px] text-rose-300">
+                    <div className="flex items-center gap-3 rounded-2xl border border-rose-500/20 bg-rose-500/[0.06] px-5 py-4 text-[13.5px] text-rose-600 dark:text-rose-300">
                         <AlertCircle size={18} className="shrink-0" />
                         {error}
                     </div>
@@ -101,10 +101,10 @@ const Page = () => {
 
                 {/* Empty state */}
                 {!loading && !error && data.length === 0 && (
-                    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/[0.02] px-6 py-16 text-center">
+                    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] px-6 py-16 text-center">
                         <Inbox size={32} className="mb-3 text-[#6B7180]" />
-                        <p className="text-[14px] font-medium text-[#A8AEBB]">No files yet</p>
-                        <p className="mt-1 text-[12.5px] text-[#6B7180]">
+                        <p className="text-[14px] font-medium text-[#3F4451] dark:text-[#A8AEBB]">No files yet</p>
+                        <p className="mt-1 text-[12.5px] text-[#6B7180] dark:text-[#6B7180]">
                             Upload a paper to see it show up here.
                         </p>
                     </div>
@@ -117,16 +117,16 @@ const Page = () => {
                             <div
                                 onClick={()=>redirect(`/dashboard/${each.id}`)}
                                 key={each.id}
-                                className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] px-5 py-4 transition-colors hover:bg-white/[0.06]"
+                                className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-black/[0.03] dark:bg-white/[0.03] px-5 py-4 transition-colors hover:bg-black/[0.06] dark:hover:bg-white/[0.06]"
                             >
                                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 text-[#38E1F2]">
                                     <FileText size={18} />
                                 </div>
                                 <div className="min-w-0 flex-1">
-                                    <p className="truncate text-[14px] font-medium text-[#F2F4F8]">
+                                    <p className="truncate text-[14px] font-medium text-[#1A1D24] dark:text-[#F2F4F8]">
                                         {each.name}
                                     </p>
-                                    <p className="mt-0.5 text-[12px] text-[#6B7180]">
+                                    <p className="mt-0.5 text-[12px] text-[#6B7180] dark:text-[#6B7180]">
                                         {[formatSize(each.size), formatDate(each.createdAt)]
                                             .filter(Boolean)
                                             .join(' · ')}

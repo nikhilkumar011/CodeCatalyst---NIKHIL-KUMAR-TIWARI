@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 
 export default function DashboardPage() {
@@ -354,6 +355,8 @@ export default function DashboardPage() {
               PDFs into structured, readable insight in seconds, powered by Google&apos;s Gemini AI.
             </p>
             <div className="hero-actions">
+              <Link href={'/root'} className="btn-primary">See how it works →</Link>
+              <a href={'/chat'} className="btn-secondary">Chat with AI</a>
               <a href="#pipeline" className="btn-primary">See how it works →</a>
               <a href="#features" className="btn-secondary">Explore features</a>
             </div>
@@ -493,6 +496,8 @@ export default function DashboardPage() {
               <h2>Stop reading page one. Start with what matters.</h2>
               <p>Upload your first document and see the pipeline turn a PDF into structured insight.</p>
               <div className="hero-actions">
+                <Link href={'/landingPage'} className="btn-primary">Get started →</Link>
+                <Link href={'/root'} className="btn-secondary">Upload PDF</Link>
                 <a href="#" className="btn-primary">Get started →</a>
                 <a href="#" className="btn-secondary">View dashboard</a>
               </div>

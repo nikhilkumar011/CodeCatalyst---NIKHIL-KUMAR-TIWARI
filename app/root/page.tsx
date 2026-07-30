@@ -122,9 +122,16 @@ export default function Home() {
     };
 
     return (
-        <div className="relative min-h-screen bg-[#05070d] text-[#F2F4F8] font-sans">
+        <div className="relative min-h-screen bg-white text-[#1A1D24] dark:bg-[#05070d] dark:text-[#F2F4F8] font-sans">
             <div
-                className="pointer-events-none fixed inset-0 z-0"
+                className="pointer-events-none fixed inset-0 z-0 dark:hidden"
+                style={{
+                    background:
+                        'radial-gradient(ellipse 800px 600px at 15% -5%, rgba(79,125,243,0.08), transparent 60%), radial-gradient(ellipse 700px 600px at 90% 10%, rgba(155,93,229,0.06), transparent 60%)',
+                }}
+            />
+            <div
+                className="pointer-events-none fixed inset-0 z-0 hidden dark:block"
                 style={{
                     background:
                         'radial-gradient(ellipse 800px 600px at 15% -5%, rgba(79,125,243,0.14), transparent 60%), radial-gradient(ellipse 700px 600px at 90% 10%, rgba(155,93,229,0.10), transparent 60%)',
@@ -132,6 +139,18 @@ export default function Home() {
             />
             <div
                 className="pointer-events-none fixed inset-0 z-0"
+                style={{
+                    backgroundImage:
+                        'linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px)',
+                    backgroundSize: '42px 42px',
+                    maskImage:
+                        'radial-gradient(ellipse 60% 50% at 50% 20%, black 20%, transparent 80%)',
+                    WebkitMaskImage:
+                        'radial-gradient(ellipse 60% 50% at 50% 20%, black 20%, transparent 80%)',
+                }}
+            />
+            <div
+                className="pointer-events-none fixed inset-0 z-0 hidden dark:block"
                 style={{
                     backgroundImage:
                         'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
@@ -144,13 +163,13 @@ export default function Home() {
             />
 
             <main className="relative z-10 mx-auto max-w-[900px] px-5 pb-20 pt-10">
-                <div className="mb-5 flex items-center justify-center gap-2 font-mono text-[11.5px] uppercase tracking-wider text-[#6B7180]">
+                <div className="mb-5 flex items-center justify-center gap-2 font-mono text-[11.5px] uppercase tracking-wider text-[#6B7180] dark:text-[#6B7180]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#34D399] shadow-[0_0_0_0_rgba(52,211,153,0.6)]" />
                     parsing engine warmed up · avg. 11s per paper
                 </div>
 
                 {uploadComplete ? (
-                    <div className="rounded-2xl border border-white/10 bg-[rgba(18,22,34,0.55)] px-10 pb-14 pt-16 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-10 sm:pt-10">
+                    <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(18,22,34,0.55)] px-10 pb-14 pt-16 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-10 sm:pt-10">
                         {insightsSuccess ? (
                             <>
                                 <div className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[18px] bg-gradient-to-br from-emerald-400 to-emerald-600 text-3xl text-white shadow-[0_0_28px_rgba(52,211,153,0.4)]">
@@ -159,14 +178,14 @@ export default function Home() {
                                 <h2 className="mb-2.5 font-[Space_Grotesk,sans-serif] text-[26px] font-semibold sm:text-[22px]">
                                     Processing Complete!
                                 </h2>
-                                <p className="mb-8 text-[15px] text-[#A8AEBB]">
+                                <p className="mb-8 text-[15px] text-[#565C6B] dark:text-[#A8AEBB]">
                                     Your document has been successfully analyzed. What would you like to do next?
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                                     <button
                                         onClick={() => router.push(`/dashboard/${uploadedId}`)}
-                                        className="group flex items-center justify-center gap-2 rounded-xl bg-[rgba(255,255,255,0.05)] border border-white/10 px-6 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-[rgba(255,255,255,0.1)] active:scale-[0.97]"
+                                        className="group flex items-center justify-center gap-2 rounded-xl bg-[rgba(0,0,0,0.04)] dark:bg-[rgba(255,255,255,0.05)] border border-black/10 dark:border-white/10 px-6 py-3.5 text-[15px] font-semibold text-[#1A1D24] dark:text-white transition-all hover:bg-[rgba(0,0,0,0.08)] dark:hover:bg-[rgba(255,255,255,0.1)] active:scale-[0.97]"
                                     >
                                         <FileText size={18} className="text-[#38E1F2]" />
                                         View Summary
@@ -189,12 +208,12 @@ export default function Home() {
                                 <h2 className="mb-2.5 font-[Space_Grotesk,sans-serif] text-[26px] font-semibold sm:text-[22px]">
                                     PDF Processed
                                 </h2>
-                                <p className="mb-8 text-[15px] text-[#A8AEBB]">
+                                <p className="mb-8 text-[15px] text-[#565C6B] dark:text-[#A8AEBB]">
                                     Processing of the PDF has been completed; however, due to API server load, the summary could not be generated.
                                 </p>
                                 <button
                                     onClick={handleReset}
-                                    className="rounded-xl bg-white/10 px-6 py-3.5 text-[15px] font-semibold text-white transition-all hover:bg-white/20 active:scale-[0.97]"
+                                    className="rounded-xl bg-black/[0.06] dark:bg-white/10 px-6 py-3.5 text-[15px] font-semibold text-[#1A1D24] dark:text-white transition-all hover:bg-black/[0.1] dark:hover:bg-white/20 active:scale-[0.97]"
                                 >
                                     Retry uploading file
                                 </button>
@@ -209,7 +228,7 @@ export default function Home() {
                         className={`rounded-2xl border border-dashed px-10 pb-14 pt-16 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-10 sm:pt-10 ${
                             isDragging 
                                 ? 'border-[#38E1F2] bg-[rgba(56,225,242,0.1)]' 
-                                : 'border-white/[0.16] bg-[rgba(18,22,34,0.55)]'
+                                : 'border-black/[0.16] dark:border-white/[0.16] bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(18,22,34,0.55)]'
                         }`}
                     >
                         <div className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[18px] bg-gradient-to-br from-[#4F7DF3] to-[#9B5DE5] text-2xl text-white shadow-[0_0_28px_rgba(93,138,245,0.5)]">
@@ -218,7 +237,7 @@ export default function Home() {
                         <h2 className="mb-2.5 font-[Space_Grotesk,sans-serif] text-[26px] font-semibold sm:text-[22px]">
                             Drag a paper here, or choose a file
                         </h2>
-                        <p className="mb-8 text-[15px] text-[#A8AEBB]">
+                        <p className="mb-8 text-[15px] text-[#565C6B] dark:text-[#A8AEBB]">
                             Please upload your PDF below{' '}
                         </p>
 
@@ -252,10 +271,10 @@ export default function Home() {
                 )}
 
                 <div className="mt-14">
-                    <h3 className="mb-1 text-center text-[13px] font-semibold uppercase tracking-wider text-[#6B7180]">
+                    <h3 className="mb-1 text-center text-[13px] font-semibold uppercase tracking-wider text-[#6B7180] dark:text-[#6B7180]">
                         What you get
                     </h3>
-                    <p className="mb-8 text-center text-[15px] text-[#A8AEBB]">
+                    <p className="mb-8 text-center text-[15px] text-[#565C6B] dark:text-[#A8AEBB]">
                         Upload any research paper and let us do the reading for you.
                     </p>
 
@@ -263,15 +282,15 @@ export default function Home() {
                         {features.map((feature) => (
                             <div
                                 key={feature.title}
-                                className="w-[220px] flex-1 min-w-[220px] max-w-[260px] rounded-2xl border border-white/[0.08] bg-[rgba(18,22,34,0.55)] p-6 text-left backdrop-blur-[18px] transition-transform hover:-translate-y-1 hover:border-white/[0.15]"
+                                className="w-[220px] flex-1 min-w-[220px] max-w-[260px] rounded-2xl border border-black/[0.08] dark:border-white/[0.08] bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(18,22,34,0.55)] p-6 text-left backdrop-blur-[18px] transition-transform hover:-translate-y-1 hover:border-black/[0.15] dark:hover:border-white/[0.15]"
                             >
-                                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.06] text-xl">
+                                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.06] text-xl">
                                     {feature.icon}
                                 </div>
-                                <h4 className="mb-1.5 text-[15px] font-semibold text-[#F2F4F8]">
+                                <h4 className="mb-1.5 text-[15px] font-semibold text-[#1A1D24] dark:text-[#F2F4F8]">
                                     {feature.title}
                                 </h4>
-                                <p className="text-[13.5px] leading-relaxed text-[#A8AEBB]">
+                                <p className="text-[13.5px] leading-relaxed text-[#565C6B] dark:text-[#A8AEBB]">
                                     {feature.description}
                                 </p>
                             </div>
@@ -280,7 +299,7 @@ export default function Home() {
                 </div>
             </main>
 
-            <div className="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-[9px] border border-white/10 bg-[#151a26] px-[18px] py-2.5 text-[13px] text-white opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+            <div className="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-[9px] border border-black/10 dark:border-white/10 bg-white dark:bg-[#151a26] px-[18px] py-2.5 text-[13px] text-[#1A1D24] dark:text-white opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
                 Toast message
             </div>
         </div>

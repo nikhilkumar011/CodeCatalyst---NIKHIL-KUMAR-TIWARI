@@ -260,7 +260,7 @@ export default function Home() {
     const handleGoogleLogin = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
-            callbackURL: "/root",
+            callbackURL: "/landingPage",
         })
       
     }
