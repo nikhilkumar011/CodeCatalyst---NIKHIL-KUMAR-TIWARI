@@ -1,67 +1,81 @@
 import { create } from "zustand";
 import { authClient } from "@/lib/auth-client";
-import { toast } from 'react-hot-toast'
-import { redirect } from "next/navigation";
+import { toast } from "react-hot-toast";
 
+interface SignupData {
+  email: string;
+  password: string;
+  fullName: string;
+}
 
-export const useAuthStore = create((set, get) => ({
+interface LoginData {
+  email: string;
+  password: string;
+}
 
+interface AuthStore {
+  signup: (
+    data: SignupData
+  ) => Promise<{
+    data: unknown;
+    error: unknown;
+  }>;
 
-    signup: async ({ email, password, fullName:name }) => {
-        let loadingToast;
-        const { data, error } = await authClient.signUp.email(
-            {
-                email,
-                password,
-                name,
-                callbackURL: "/landingPage",
-            },
-            {
-                onRequest: (ctx) => {
-                    loadingToast = toast.loading("Signing Up...")
-                },
-                onSuccess: (ctx) => {
-                    toast.dismiss(loadingToast)
-                    toast.success("Signed Up Successfully!");
-                    redirect('/landingPage')
-                },
-                onError: (ctx) => {
-                    toast.dismiss(loadingToast)
-                    toast.error(ctx.error.message);
-                },
-            }
-        );
+  login: (data: LoginData) => Promise<void>;
+}
 
-        return { data, error };
-    },
+export const useAuthStore = create<AuthStore>(() => ({
+  signup: async ({ email, password, fullName: name }) => {
+    let loadingToast: string | undefined;
 
-    login: async ({ email, password }) => {
-        let loadingToast;
+    const { data, error } = await authClient.signUp.email(
+      {
+        email,
+        password,
+        name,
+        callbackURL: "/landingPage",
+      },
+      {
+        onRequest: () => {
+          loadingToast = toast.loading("Signing Up...");
+        },
+        onSuccess: () => {
+          if (loadingToast) toast.dismiss(loadingToast);
+          toast.success("Signed Up Successfully!");
+        },
+        onError: (ctx) => {
+          if (loadingToast) toast.dismiss(loadingToast);
+          toast.error(ctx.error.message);
+        },
+      }
+    );
 
-        await authClient.signIn.email(
-            {
-                email,
-                password,
-                callbackURL: "/landingPage",
-                rememberMe: false,
-            },
-            {
-                onRequest: () => {
-                    loadingToast = toast.loading("Signing In...");
-                },
-                onSuccess: async () => {
-                    toast.dismiss(loadingToast);
-                    toast.success("Logged In Successfully!");
+    return { data, error };
+  },
 
-                    redirect('/landingPage')
+  login: async ({ email, password }) => {
+    let loadingToast: string | undefined;
 
-                },
-                onError: (ctx) => {
-                    toast.dismiss(loadingToast);
-                    toast.error(ctx.error.message);
-                },
-            }
-        );
-    }
-
+    await authClient.signIn.email(
+      {
+        email,
+        password,
+        callbackURL: "/landingPage",
+        rememberMe: false,
+      },
+      {
+        onRequest: () => {
+          loadingToast = toast.loading("Signing In...");
+        },
+        onSuccess: () => {
+          if (loadingToast) toast.dismiss(loadingToast);
+          toast.success("Logged In Successfully!");
+        },
+        onError: (ctx) => {
+          if (loadingToast) toast.dismiss(loadingToast);
+          toast.error(ctx.error.message);
+        },
+      }
+    );
+  },
 }));
