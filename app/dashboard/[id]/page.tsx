@@ -15,7 +15,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   if (!data) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#05070d] text-[#F2F4F8]">
+      <div className="flex sticky top-0 h-screen overflow-scroll items-center justify-center bg-[#05070d] text-[#F2F4F8]">
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/5 text-lg text-[#6B7180]">
             📄

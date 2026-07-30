@@ -4,8 +4,6 @@ import { toast } from 'react-hot-toast'
 import { redirect } from "next/navigation";
 
 
-
-
 export const useAuthStore = create((set, get) => ({
 
 
