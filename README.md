@@ -1,204 +1,317 @@
-# SOFC 2.0 - Code Catalyst
+# 🚀 CodeCatalyst
 
-A modern document intelligence platform that uses AI to extract and analyze insights from PDF documents. Built with Next.js, Prisma, and Google's Generative AI.
+An AI-powered PDF analysis platform built with **Next.js 16**, **Prisma**, **Better Auth**, **Google Gemini AI**, and **PostgreSQL**. Upload PDF documents, extract text, generate AI-powered insights, and create flashcards to enhance learning.
 
-## 📋 Project Overview
-
-SOFC 2.0 Code Catalyst is an intelligent document processing application designed to:
-- **Upload & Parse PDFs**: Seamlessly upload PDF documents and extract text content
-- **AI-Powered Analysis**: Leverage Google's Gemini AI to analyze document content
-- **Extract Insights**: Automatically extract structured data including summaries, key findings, technical details, recommendations, and confidence scores
-- **User Authentication**: Secure user authentication and session management with BetterAuth
-- **Database Storage**: PostgreSQL database for storing user data and documents
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ 
-- npm, yarn, pnpm, or bun
-- PostgreSQL database
-- Google Generative AI API key
-
-### Installation
-
-1. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
-
-2. Set up environment variables:
-Create a `.env.local` file in the root directory:
-```
-DATABASE_URL=postgresql://user:password@localhost:5432/sofc2
-GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
-```
-
-3. Run database migrations:
-```bash
-npx prisma migrate dev
-```
-
-### Development Server
-
-Start the development server:
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
-## 🏗️ Project Structure
-
-```
-app/
-├── api/
-│   ├── auth/              # Authentication endpoints (BetterAuth)
-│   ├── upload/            # PDF upload and parsing endpoint
-│   └── insights/          # AI-powered document analysis endpoint
-├── login/                 # User login page
-├── signup/                # User registration page
-├── root/                  # Main dashboard layout
-└── globals.css            # Global styles
-
-lib/
-├── auth.ts                # Authentication configuration
-├── auth-client.ts         # Client-side auth utilities
-└── db.ts                  # Database connection
-
-prisma/
-├── schema.prisma          # Database schema
-└── migrations/            # Database migration history
-```
-
-## 🔧 Tech Stack
-
-- **Frontend**: React 19.2.4 with Next.js 16.2.12
-- **Styling**: Tailwind CSS 4 with PostCSS
-- **Animation**: Framer Motion 12.43.0
-- **Icons**: Lucide React 1.27.0
-- **Backend**: Next.js API Routes
-- **Database**: PostgreSQL with Prisma ORM 7.9.1
-- **Authentication**: BetterAuth 1.6.25
-- **AI/ML**: Google Generative AI (@google/generative-ai)
-- **PDF Processing**: pdf2json 4.0.3
-- **Linting**: ESLint 9
-- **Type Safety**: TypeScript 5
-
-## 📚 Key Features
-
-### PDF Upload & Processing (`/api/upload`)
-- Accepts PDF files via multipart form data
-- Extracts text content from PDFs using pdf2json
-- Returns structured text for further analysis
-
-### AI Document Analysis (`/api/insights`)
-- Sends extracted text to Google Gemini AI
-- Structured schema generation for consistent output
-- Extracts:
-  - **Summary**: Concise overview of the document
-  - **Key Findings**: Main points and conclusions
-  - **Technical Details**: Specifications and technical information
-  - **Recommendations**: Suggested actions or improvements
-  - **Confidence Score**: AI confidence in the analysis
-
-### User Management
-- Sign up and login functionality
-- Secure session management
-- User profile storage (name, email, image)
-- Email verification support
-
-## 🔐 Authentication
-
-Uses **BetterAuth** for robust authentication:
-- User registration and login
-- Session management
-- Password hashing and security
-- Social authentication ready
-
-## 📦 Available Scripts
-
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm start        # Start production server
-npm run lint     # Run ESLint
-```
-
-## 🌐 API Endpoints
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/upload` | POST | Upload and parse PDF documents |
-| `/api/insights` | POST | Get AI-powered analysis of document text |
-| `/api/auth/[...all]` | ALL | Authentication endpoints (managed by BetterAuth) |
-
-## 🗄️ Database Schema
-
-### User Model
-- id: string (primary key)
-- name, email, emailVerified
-- image, createdAt, updatedAt
-- relations: sessions, accounts
-
-### Session Model
-- id, token, expiresAt
-- ipAddress, userAgent
-- userId (foreign key)
-
-### Account Model
-- OAuth/social login integration
-- accountId, providerId
-- userId (foreign key)
-
-## 🚀 Deployment
-
-### Build for Production
-```bash
-npm run build
-npm start
-```
-
-### Deploy on Vercel
-The easiest way to deploy is using [Vercel](https://vercel.com):
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Set environment variables in Vercel dashboard
-4. Click deploy
-
-See [Next.js Deployment Documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## 📝 Environment Variables
-
-Required environment variables for `.env.local`:
-```
-DATABASE_URL              # PostgreSQL connection string
-GOOGLE_GENERATIVE_AI_API_KEY  # Google AI API key (get from https://makersuite.google.com/app/apikey)
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is part of the SOFC initiative.
-
-## 🔗 Resources
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Prisma Documentation](https://www.prisma.io/docs)
-- [Google Generative AI API](https://ai.google.dev/)
-- [Tailwind CSS](https://tailwindcss.com)
-- [BetterAuth Documentation](https://www.better-auth.com/)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-316192?logo=postgresql)
+![Gemini](https://img.shields.io/badge/Google-Gemini_AI-4285F4?logo=google)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-**Last Updated**: July 30, 2026
+## 📌 Features
+
+- 📄 Upload PDF documents
+- 🔍 Extract text from PDFs
+- 🤖 AI-powered document summarization
+- 📝 Automatic flashcard generation
+- ⚡ Key contributions extraction
+- ⚠️ Limitations detection
+- 🔐 Authentication with Better Auth
+- 🌙 Dark & Light mode
+- 📊 Personal dashboard
+- 💾 Store uploaded files and generated insights
+- 🎨 Modern responsive UI using Tailwind CSS & Framer Motion
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Zustand
+- React Hot Toast
+
+### Backend
+
+- Next.js Route Handlers
+- Better Auth
+- Prisma ORM
+- PostgreSQL (Neon)
+
+### AI
+
+- Google Gemini API
+
+### PDF Processing
+
+- pdf2json
+
+### Deployment
+
+- Vercel
+
+---
+
+# 📂 Folder Structure
+
+```
+app
+├── api
+│   ├── auth
+│   ├── upload
+│   ├── insights
+│   └── upfiles
+│
+├── dashboard
+├── login
+├── signup
+└── landingPage
+
+components
+lib
+providers
+prisma
+public
+```
+
+---
+
+# ⚙️ Environment Variables
+
+Create a `.env` file.
+
+```env
+DATABASE_URL=
+
+BETTER_AUTH_SECRET=
+
+BETTER_AUTH_URL=http://localhost:3000
+
+GOOGLE_CLIENT_ID=
+
+GOOGLE_CLIENT_SECRET=
+
+GOOGLE_GENERATIVE_AI_API_KEY=
+```
+
+For production, update
+
+```env
+BETTER_AUTH_URL=https://your-domain.vercel.app
+```
+
+---
+
+# 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/CodeCatalyst.git
+```
+
+Go inside the project
+
+```bash
+cd CodeCatalyst
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+Push schema to database
+
+```bash
+npx prisma db push
+```
+
+Run development server
+
+```bash
+npm run dev
+```
+
+Visit
+
+```
+http://localhost:3000
+```
+
+---
+
+# 📖 How It Works
+
+### 1. User Authentication
+
+Users can
+
+- Sign Up
+- Login
+- Google Sign In
+
+using Better Auth.
+
+---
+
+### 2. Upload PDF
+
+The user uploads a PDF document.
+
+---
+
+### 3. Text Extraction
+
+The backend extracts all readable text using **pdf2json**.
+
+---
+
+### 4. Store Document
+
+The extracted text is stored in PostgreSQL using Prisma.
+
+---
+
+### 5. AI Analysis
+
+Google Gemini processes the extracted text and generates:
+
+- Summary
+- Key Contributions
+- Limitations
+- Flashcards
+
+---
+
+### 6. Dashboard
+
+Users can revisit previously uploaded documents and AI-generated insights.
+
+---
+
+# 🗄 Database Schema
+
+```
+User
+│
+├── Sessions
+├── Accounts
+└── Uploaded Files
+        │
+        └── Output
+              ├── Summary
+              ├── Contributions
+              ├── Limitations
+              └── Flashcards
+```
+
+---
+
+# 📸 Screenshots
+
+> Add screenshots of your application here.
+
+```
+public/screenshots
+
+home.png
+
+dashboard.png
+
+upload.png
+
+insights.png
+
+login.png
+```
+
+---
+
+# 🔮 Future Improvements
+
+- Support PDFs larger than serverless payload limits using object storage
+- Chat with uploaded PDFs
+- Vector database integration
+- Semantic search
+- Multi-document analysis
+- Export AI notes
+- Folder management
+- OCR support for scanned PDFs
+- AI Quiz Generator
+- Citation generation
+- PDF annotations
+
+---
+
+# 📦 Main Dependencies
+
+```json
+Next.js
+React
+TypeScript
+Prisma
+Better Auth
+PostgreSQL
+Google Gemini
+pdf2json
+Framer Motion
+Zustand
+Tailwind CSS
+Lucide React
+React Hot Toast
+```
+
+---
+
+# 🧠 AI Features
+
+- Document Summarization
+- Flashcard Generation
+- Contribution Detection
+- Limitation Analysis
+
+Powered by **Google Gemini**.
+
+---
+
+# 👨‍💻 Author
+
+**Nikhil Kumar Tiwari**
+
+GitHub: https://github.com/nikhilkumar011
+
+LinkedIn: Add your LinkedIn profile
+
+---
+
+# ⭐ Show Your Support
+
+If you found this project helpful,
+
+⭐ Star this repository
+
+🍴 Fork it
+
+📢 Share it with others
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
