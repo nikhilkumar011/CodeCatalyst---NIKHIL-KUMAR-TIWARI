@@ -22,9 +22,9 @@ export async function POST(req: NextRequest) {
       pdfParser.parseBuffer(buffer);
     });
 
-    return NextResponse.json({
+return NextResponse.json({
       success: true,
-      extractedText: extractedText,
+      text: extractedText,
     });
   } catch (error: any) {
     console.error("Upload Route Error:", error);

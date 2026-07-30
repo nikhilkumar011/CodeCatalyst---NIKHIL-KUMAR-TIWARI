@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 const page = () => {
@@ -8,3 +7,4 @@ const page = () => {
 }
 
 export default page
+
