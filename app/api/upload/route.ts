@@ -29,14 +29,15 @@ export async function POST(req: NextRequest) {
       text: extractedText,
     };
 
-    await prisma.uploadedFile.create({
+    const upfile = await prisma.uploadedFile.create({
       data: {
         name: pdfName,
         text: extractedText, 
       },
     });
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json({ message: "File uploaded and parsed successfully", uploadedFileId: upfile.id,data });
+
   } catch (error: any) {
     console.error("Upload Route Error:", error);
     return NextResponse.json(

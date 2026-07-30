@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ data: JSON.parse(result.response.text()) });
+    return NextResponse.json({ data });
 
   } catch (error: any) {
     console.error("Insights Route Error:", error);
