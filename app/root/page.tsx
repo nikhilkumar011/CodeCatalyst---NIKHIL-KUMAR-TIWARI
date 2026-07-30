@@ -1,6 +1,8 @@
 "use client";
 
-import { useState} from "react";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+import { useEffect, useState} from "react";
 export default function Home() {
   
   const [file,setFile]=useState<File>()
@@ -24,11 +26,35 @@ export default function Home() {
   console.error(e)}
   }
 
+  useEffect(() => {
+  const checkSession = async () => {
+    const { data } = await authClient.getSession();
+
+    if (!data) {
+      window.location.href = "/login";
+    }
+  };
+
+  checkSession();
+}, []);
+
+  const logout = async () => {
+  await authClient.signOut({
+    fetchOptions: {
+      onSuccess: () => {
+        window.location.href = "/login";
+      },
+    },
+  });
+};
+
   return (
   <main><div><form action="submit"><
     input type="file"
     id="file" name="file" 
     onChange={(e)=>setFile(e.target.files?.[0])} />
-      <input type="submit" value="upload" /></form></div></main>    
+      <input type="submit" value="upload" /></form>
+      <button onClick={logout}>Logout</button>
+      </div></main>    
   );
 }

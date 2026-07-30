@@ -5,6 +5,8 @@ import { useState, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { authClient } from "@/lib/auth-client";
 
 /**
  * BRIEFLY — Sign up
@@ -226,6 +228,7 @@ export default function SignUpPage() {
         confirmPassword?: string;
         agreed?: string;
     }>({});
+    const {signup} = useAuthStore();
     const cardRef = useRef<HTMLDivElement>(null);
     const [glow, setGlow] = useState({ x: 50, y: 50 });
 
@@ -256,9 +259,16 @@ export default function SignUpPage() {
         e.preventDefault();
         if (!validate()) return;
         setLoading(true);
-        // Wire this to your real auth call.
+        signup({email,password,fullName})
         setTimeout(() => setLoading(false), 1800);
     };
+
+    const handleGoogleLogin = async () => {
+            const data = await authClient.signIn.social({
+                provider: "google",
+    
+            })
+        }
 
     const cardVariants = {
         hidden: { opacity: 0, y: 24, scale: 0.98 },
@@ -622,6 +632,7 @@ export default function SignUpPage() {
                                         <button
                                             key={s.label}
                                             type="button"
+                                            onClick={s.label === "Google" ? handleGoogleLogin : undefined}
                                             aria-label={`Continue with ${s.label}`}
                                             className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] py-2.5 text-white/80 text-[13px]
                         transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-0.5
