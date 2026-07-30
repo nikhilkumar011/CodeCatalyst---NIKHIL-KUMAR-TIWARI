@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 interface SignupData {
   email: string;
@@ -42,6 +43,7 @@ export const useAuthStore = create<AuthStore>(() => ({
         onSuccess: () => {
           if (loadingToast) toast.dismiss(loadingToast);
           toast.success("Signed Up Successfully!");
+          redirect("/landingPage");
         },
         onError: (ctx) => {
           if (loadingToast) toast.dismiss(loadingToast);
@@ -70,6 +72,7 @@ export const useAuthStore = create<AuthStore>(() => ({
         onSuccess: () => {
           if (loadingToast) toast.dismiss(loadingToast);
           toast.success("Logged In Successfully!");
+          redirect("/landingPage");
         },
         onError: (ctx) => {
           if (loadingToast) toast.dismiss(loadingToast);
