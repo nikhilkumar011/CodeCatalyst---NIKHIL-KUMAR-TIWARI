@@ -70,7 +70,28 @@ export default function Home() {
     };
     const fileInputRef = useRef(null);
 
-
+    const features = [
+        {
+            icon: "📝",
+            title: "Instant Summaries",
+            description: "Get a clear, concise summary of any research paper in seconds — no more skimming 20 pages.",
+        },
+        {
+            icon: "🎯",
+            title: "Key Contributions",
+            description: "We surface the paper's core contributions so you know exactly what's new and why it matters.",
+        },
+        {
+            icon: "⚠️",
+            title: "Limitations Called Out",
+            description: "Every paper has caveats. We extract them so you don't have to dig through the discussion section.",
+        },
+        {
+            icon: "🧠",
+            title: "Auto-Generated Flashcards",
+            description: "Turn dense papers into bite-sized Q&A flashcards, perfect for revision and quick recall.",
+        },
+    ];
 
     return (
         <div className="relative min-h-screen bg-[#05070d] text-[#F2F4F8] font-sans">
@@ -96,22 +117,22 @@ export default function Home() {
                 }}
             />
 
-            <main className="relative z-10 mx-auto max-w-[900px] px-5 pb-16 pt-6">
+            <main className="relative z-10 mx-auto max-w-[900px] px-5 pb-20 pt-10">
                 {/* Eyebrow */}
-                <div className="mb-3.5 flex items-center justify-center gap-2 font-mono text-[11.5px] uppercase tracking-wider text-[#6B7180]">
+                <div className="mb-5 flex items-center justify-center gap-2 font-mono text-[11.5px] uppercase tracking-wider text-[#6B7180]">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#34D399] shadow-[0_0_0_0_rgba(52,211,153,0.6)]" />
                     parsing engine warmed up · avg. 11s per paper
                 </div>
 
                 {/* Upload card */}
-                <div className="rounded-2xl border border-dashed border-white/[0.16] bg-[rgba(18,22,34,0.55)] px-10 pb-9 pt-12 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-8 sm:pt-8">
-                    <div className="mx-auto mb-4.5 flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-gradient-to-br from-[#4F7DF3] to-[#9B5DE5] text-xl text-white shadow-[0_0_24px_rgba(93,138,245,0.45)]">
+                <div className="rounded-2xl border border-dashed border-white/[0.16] bg-[rgba(18,22,34,0.55)] px-10 pb-14 pt-16 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-10 sm:pt-10">
+                    <div className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[18px] bg-gradient-to-br from-[#4F7DF3] to-[#9B5DE5] text-2xl text-white shadow-[0_0_28px_rgba(93,138,245,0.5)]">
                         ⬆
                     </div>
-                    <h2 className="mb-1.5 font-[Space_Grotesk,sans-serif] text-[19px] font-semibold">
+                    <h2 className="mb-2.5 font-[Space_Grotesk,sans-serif] text-[26px] font-semibold sm:text-[22px]">
                         Drag a paper here, or choose a file
                     </h2>
-                    <p className="mb-5.5 text-[13.5px] text-[#A8AEBB]">
+                    <p className="mb-8 text-[15px] text-[#A8AEBB]">
                         PDF, arXiv, or a straight-up DOI —{' '}
                         <span className="text-[#38E1F2]">first one&apos;s free</span>, no sign-up.
                     </p>
@@ -125,11 +146,11 @@ export default function Home() {
                             onChange={(e) => setFile(e.target.files?.[0] || null)}
                         />
 
-                        <div className="mb-5.5 flex flex-wrap justify-center gap-2.5">
+                        <div className="flex flex-wrap justify-center gap-3">
                             <button
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}
-                                className="rounded-lg bg-gradient-to-r from-[#4F7DF3] to-[#9B5DE5] px-[18px] py-2.5 text-sm font-semibold text-white shadow-[0_6px_20px_-6px_rgba(93,138,245,0.6)] transition-[filter,transform] hover:brightness-110 active:scale-[0.97]"
+                                className="rounded-lg bg-gradient-to-r from-[#4F7DF3] to-[#9B5DE5] px-6 py-3 text-[15px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(93,138,245,0.6)] transition-[filter,transform] hover:brightness-110 active:scale-[0.97]"
                             >
                                 {file ? file.name : "Choose File"}
                             </button>
@@ -137,72 +158,45 @@ export default function Home() {
                             <button
                                 type="submit"
                                 disabled={!file || loading}
-                                className="rounded-lg bg-gradient-to-r from-emerald-500 to-green-600 px-[18px] py-2.5 text-sm font-semibold text-white shadow-[0_6px_20px_-6px_rgba(16,185,129,0.6)] transition-[filter,transform] hover:brightness-110 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+                                className="rounded-lg bg-gradient-to-r from-emerald-500 to-green-600 px-6 py-3 text-[15px] font-semibold text-white shadow-[0_6px_20px_-6px_rgba(16,185,129,0.6)] transition-[filter,transform] hover:brightness-110 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
                             >
                                 {loading ? <BeatLoader size={8} color="#ffffff" /> : "Upload & Analyze"}
                             </button>
                         </div>
                     </form>
 
-
                     {/* Error text (hidden state, kept for visual reference) */}
                     {/* <div className="mx-auto mt-2.5 flex max-w-[480px] items-center justify-center gap-1.5 text-[12.5px] text-[#F87171]">
             ⚠ <span>Error message</span>
           </div> */}
-
-                    {/* Staged file (example / static preview) */}
-
                 </div>
 
-                {/* Pipeline card */}
-                <div className="mt-5.5 rounded-[14px] border border-white/[0.08] bg-[rgba(18,22,34,0.55)] px-[30px] pb-5.5 pt-6.5 backdrop-blur-[18px] sm:px-5">
-                    <div className="relative flex items-center justify-between">
-                        {/* track line */}
-                        <div className="absolute left-[8%] right-[8%] top-[15px] z-0 h-0.5 bg-white/10" />
-                        <div className="absolute left-[8%] top-[15px] z-0 h-0.5 w-[42%] bg-gradient-to-r from-[#4F7DF3] to-[#34D399] transition-all" />
+                {/* Feature cards */}
+                <div className="mt-14">
+                    <h3 className="mb-1 text-center text-[13px] font-semibold uppercase tracking-wider text-[#6B7180]">
+                        What you get
+                    </h3>
+                    <p className="mb-8 text-center text-[15px] text-[#A8AEBB]">
+                        Upload any research paper and let us do the reading for you.
+                    </p>
 
-                        {[
-                            { n: 1, label: 'Extract', state: 'done' },
-                            { n: 2, label: 'Chunk', state: 'done' },
-                            { n: 3, label: 'Embed', state: 'active' },
-                            { n: 4, label: 'Analyze', state: '' },
-                            { n: 5, label: 'Generate', state: '' },
-                        ].map((step) => (
-                            <div key={step.n} className="z-10 flex flex-1 flex-col items-center gap-2">
-                                <div
-                                    className={
-                                        'flex h-[30px] w-[30px] items-center justify-center rounded-full border text-[13px] font-bold transition-colors ' +
-                                        (step.state
-                                            ? 'border-transparent bg-[#34D399] text-[#04140d]'
-                                            : 'border-white/[0.12] bg-white/[0.08] text-[#6B7180]')
-                                    }
-                                >
-                                    {step.n}
+                    <div className="flex  justify-center gap-5">
+                        {features.map((feature) => (
+                            <div
+                                key={feature.title}
+                                className="w-[220px] flex-1 min-w-[220px] max-w-[260px] rounded-2xl border border-white/[0.08] bg-[rgba(18,22,34,0.55)] p-6 text-left backdrop-blur-[18px] transition-transform hover:-translate-y-1 hover:border-white/[0.15]"
+                            >
+                                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.06] text-xl">
+                                    {feature.icon}
                                 </div>
-                                <div
-                                    className={
-                                        'font-mono text-[10.5px] uppercase tracking-wider ' +
-                                        (step.state ? 'text-[#F2F4F8]' : 'text-[#6B7180]')
-                                    }
-                                >
-                                    {step.label}
-                                </div>
+                                <h4 className="mb-1.5 text-[15px] font-semibold text-[#F2F4F8]">
+                                    {feature.title}
+                                </h4>
+                                <p className="text-[13.5px] leading-relaxed text-[#A8AEBB]">
+                                    {feature.description}
+                                </p>
                             </div>
                         ))}
-                    </div>
-
-                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-                        <div className="flex min-h-[20px] items-center gap-2 text-[13.5px] text-[#A8AEBB]">
-                            <span>Generating embeddings for each chunk…</span>
-                        </div>
-                        <div className="flex items-center gap-2.5">
-                            <button className="border-none bg-transparent p-0 text-[12.5px] text-[#6B7180] underline hover:text-[#A8AEBB]">
-                                Cancel
-                            </button>
-                            <button className="hidden items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#4F7DF3] to-[#9B5DE5] px-3.5 py-2 text-[13px] font-semibold text-white">
-                                Open brief →
-                            </button>
-                        </div>
                     </div>
                 </div>
             </main>
