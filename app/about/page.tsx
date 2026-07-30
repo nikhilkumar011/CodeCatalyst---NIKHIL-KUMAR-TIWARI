@@ -356,9 +356,8 @@ export default function DashboardPage() {
             </p>
             <div className="hero-actions">
               <Link href={'/root'} className="btn-primary">See how it works →</Link>
-              <a href={'/chat'} className="btn-secondary">Chat with AI</a>
-              <a href="#pipeline" className="btn-primary">See how it works →</a>
-              <a href="#features" className="btn-secondary">Explore features</a>
+              <Link href={'/chat'} className="btn-secondary">Chat with AI</Link>
+              
             </div>
           </header>
 
@@ -498,8 +497,7 @@ export default function DashboardPage() {
               <div className="hero-actions">
                 <Link href={'/landingPage'} className="btn-primary">Get started →</Link>
                 <Link href={'/root'} className="btn-secondary">Upload PDF</Link>
-                <a href="#" className="btn-primary">Get started →</a>
-                <a href="#" className="btn-secondary">View dashboard</a>
+                
               </div>
             </div>
           </section>
