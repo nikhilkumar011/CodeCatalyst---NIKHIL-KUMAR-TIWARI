@@ -76,12 +76,14 @@ model Verification {
 }
 
 model UploadedFile {
-  id      String  @id @default(cuid())
-  name    String
-  text    String
-  output  Output?
-}
+  id     String  @id @default(cuid())
+  name   String
+  text   String
 
+  userId String
+
+  output Output?
+}
 model Output {
   id               String   @id @default(cuid())
   summary          String
