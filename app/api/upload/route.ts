@@ -34,11 +34,18 @@ export async function POST(req: NextRequest) {
       text: extractedText,
     };
 
+    if (!session?.user?.id) {
+  return Response.json(
+    { error: "Unauthorized" },
+    { status: 401 }
+  );
+}
+
     const upfile = await prisma.uploadedFile.create({
       data: {
         name: pdfName,
         text: extractedText, 
-        userId: session?.user?.id || null,
+        userId: session.user.id ,
       },
     });
 
