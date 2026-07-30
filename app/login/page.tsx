@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useState, useRef, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import Link from 'next/link'
 import { useAuthStore } from "@/stores/useAuthStore";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+
 /**
  * FUTURISTIC LOGIN — "Access Constellation"
  * ------------------------------------------------------------
@@ -243,18 +244,38 @@ export default function Home() {
         setTimeout(() => setLoading(false), 1800);
     };
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 24, scale: 0.98 },
+    const cardVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: 24,
+            scale: 0.98,
+        },
         visible: {
             opacity: 1,
             y: 0,
             scale: 1,
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.06, delayChildren: 0.15 },
+            transition: {
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                staggerChildren: 0.06,
+                delayChildren: 0.15,
+            },
         },
     };
-    const fieldVariants = {
-        hidden: { opacity: 0, y: 10 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+
+    const fieldVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: 10,
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.4,
+                ease: "easeOut",
+            },
+        },
     };
 
     const handleGoogleLogin = async () => {
@@ -262,7 +283,7 @@ export default function Home() {
             provider: "google",
             callbackURL: "/landingPage",
         })
-      
+
     }
 
     return (
@@ -410,7 +431,7 @@ export default function Home() {
                                             <label htmlFor="password" className="block text-xs font-medium text-[#94A3B8]">
                                                 Password
                                             </label>
-                                            
+
                                         </div>
                                         <div className="relative">
                                             <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
