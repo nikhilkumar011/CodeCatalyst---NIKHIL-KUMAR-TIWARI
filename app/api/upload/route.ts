@@ -36,7 +36,13 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ message: "File uploaded and parsed successfully", uploadedFileId: upfile.id,data });
+  return NextResponse.json({ 
+  success: true,
+  message: "File uploaded and parsed successfully", 
+  uploadedFileId: upfile.id,
+  text: extractedText,
+  name: pdfName 
+});
 
   } catch (error: any) {
     console.error("Upload Route Error:", error);

@@ -3,24 +3,25 @@
 import { authClient } from "@/lib/auth-client";
 import { Divide } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState,useRef } from "react";
-import {BeatLoader} from 'react-spinners';
-export default function Home() {
+import { useEffect, useState, useRef } from "react";
+import { BeatLoader } from 'react-spinners';
 
-    const [file, setFile] = useState<File>()
+export default function Home() {
+    const [file, setFile] = useState<File>();
     const router = useRouter();
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        if (!file) return
+        if (!file) return;
         setLoading(true);
 
         try {
-
-            const data = new FormData()
-            data.set('file', file)
+            const data = new FormData();
+            data.set('file', file);
 
             const uploadRes = await fetch("/api/upload", {
                 method: "POST",
@@ -36,16 +37,39 @@ export default function Home() {
                 },
                 body: JSON.stringify({
                     uploadedFileId: uploadData.uploadedFileId,
-                    text: uploadData.data.text,
+                    text: uploadData.text,
                 }),
             });
+            
             setLoading(false);
-
             router.push(`/dashboard/${uploadData.uploadedFileId}`);
         } catch (e: any) {
-            console.error(e)
+            console.error(e);
+            setLoading(false);
         }
-    }
+    };
+
+    // --- Drag and Drop Handlers ---
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDragging(true);
+    };
+
+    const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDragging(false);
+        
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const droppedFile = e.dataTransfer.files[0];
+            // You can add validation here (e.g., droppedFile.type === "application/pdf")
+            setFile(droppedFile);
+        }
+    };
 
     useEffect(() => {
         const checkSession = async () => {
@@ -68,7 +92,6 @@ export default function Home() {
             },
         });
     };
-    const fileInputRef = useRef(null);
 
     const features = [
         {
@@ -124,8 +147,17 @@ export default function Home() {
                     parsing engine warmed up · avg. 11s per paper
                 </div>
 
-                {/* Upload card */}
-                <div className="rounded-2xl border border-dashed border-white/[0.16] bg-[rgba(18,22,34,0.55)] px-10 pb-14 pt-16 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-10 sm:pt-10">
+                {/* Upload card - Updated with Drag & Drop events and dynamic styling */}
+                <div 
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    className={`rounded-2xl border border-dashed px-10 pb-14 pt-16 text-center backdrop-blur-[18px] transition-colors sm:px-6 sm:pb-10 sm:pt-10 ${
+                        isDragging 
+                            ? 'border-[#38E1F2] bg-[rgba(56,225,242,0.1)]' 
+                            : 'border-white/[0.16] bg-[rgba(18,22,34,0.55)]'
+                    }`}
+                >
                     <div className="mx-auto mb-6 flex h-[68px] w-[68px] items-center justify-center rounded-[18px] bg-gradient-to-br from-[#4F7DF3] to-[#9B5DE5] text-2xl text-white shadow-[0_0_28px_rgba(93,138,245,0.5)]">
                         ⬆
                     </div>
@@ -133,8 +165,7 @@ export default function Home() {
                         Drag a paper here, or choose a file
                     </h2>
                     <p className="mb-8 text-[15px] text-[#A8AEBB]">
-                        PDF, arXiv, or a straight-up DOI —{' '}
-                        <span className="text-[#38E1F2]">first one&apos;s free</span>, no sign-up.
+                        Please upload your PDF below{' '}
                     </p>
 
                     {/* Paste row */}
@@ -143,7 +174,7 @@ export default function Home() {
                             ref={fileInputRef}
                             type="file"
                             className="hidden"
-                            onChange={(e) => setFile(e.target.files?.[0] || null)}
+                            onChange={(e) => setFile(e.target.files?.[0] || undefined)}
                         />
 
                         <div className="flex flex-wrap justify-center gap-3">
@@ -164,11 +195,6 @@ export default function Home() {
                             </button>
                         </div>
                     </form>
-
-                    {/* Error text (hidden state, kept for visual reference) */}
-                    {/* <div className="mx-auto mt-2.5 flex max-w-[480px] items-center justify-center gap-1.5 text-[12.5px] text-[#F87171]">
-            ⚠ <span>Error message</span>
-          </div> */}
                 </div>
 
                 {/* Feature cards */}
@@ -180,7 +206,7 @@ export default function Home() {
                         Upload any research paper and let us do the reading for you.
                     </p>
 
-                    <div className="flex  justify-center gap-5">
+                    <div className="flex justify-center gap-5">
                         {features.map((feature) => (
                             <div
                                 key={feature.title}
