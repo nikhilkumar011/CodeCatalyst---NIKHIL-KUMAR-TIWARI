@@ -74,3 +74,21 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+model UploadedFile {
+  id      String  @id @default(cuid())
+  name    String
+  text    String
+  output  Output?
+}
+
+model Output {
+  id               String   @id @default(cuid())
+  summary          String
+  contributions    String[]
+  limitations      String[]
+  flashcards       Json
+
+  uploadedFileId   String   @unique
+  uploadedFile     UploadedFile @relation(fields: [uploadedFileId], references: [id])
+}
