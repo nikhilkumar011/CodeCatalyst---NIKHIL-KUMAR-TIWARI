@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useState, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
+import Link from 'next/link'
+import { useAuthStore } from "@/stores/useAuthStore";
+import { authClient } from "@/lib/auth-client";
 
 /**
  * FUTURISTIC LOGIN — "Access Constellation"
@@ -210,6 +213,7 @@ export default function Home() {
     const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
     const cardRef = useRef<HTMLDivElement>(null);
     const [glow, setGlow] = useState({ x: 50, y: 50 });
+    const { login } = useAuthStore();
 
     const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         const el = cardRef.current;
@@ -234,6 +238,7 @@ export default function Home() {
         if (!validate()) return;
         setLoading(true);
         // Wire this to your real auth call.
+        login({ email, password })
         setTimeout(() => setLoading(false), 1800);
     };
 
@@ -250,6 +255,13 @@ export default function Home() {
         hidden: { opacity: 0, y: 10 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
     };
+
+    const handleGoogleLogin = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+
+        })
+    }
 
     return (
         <div>
@@ -396,9 +408,7 @@ export default function Home() {
                                             <label htmlFor="password" className="block text-xs font-medium text-[#94A3B8]">
                                                 Password
                                             </label>
-                                            <a href="#forgot" className="text-xs text-[#22D3EE] hover:text-[#67e8f9] transition-colors">
-                                                Forgot password?
-                                            </a>
+                                            
                                         </div>
                                         <div className="relative">
                                             <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#94A3B8]" />
@@ -487,6 +497,7 @@ export default function Home() {
                                             key={s.label}
                                             type="button"
                                             aria-label={`Continue with ${s.label}`}
+                                            onClick={s.label === "Google" ? handleGoogleLogin : undefined}
                                             className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] py-2.5 text-white/80 text-[13px]
                       transition-all duration-300 hover:bg-white/[0.08] hover:border-white/20 hover:-translate-y-0.5
                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22D3EE]"
@@ -500,9 +511,9 @@ export default function Home() {
                                 {/* Sign up */}
                                 <motion.p variants={fieldVariants} className="mt-7 text-center text-[13px] text-[#94A3B8]">
                                     New to Briefly?{" "}
-                                    <a href="#signup" className="text-white font-medium hover:text-[#22D3EE] transition-colors">
+                                    <Link href={'/signup'} className="text-white font-medium hover:text-[#22D3EE] transition-colors">
                                         Create an account
-                                    </a>
+                                    </Link>
                                 </motion.p>
 
                                 <motion.p variants={fieldVariants} className="mt-3 text-center text-[11px] text-[#5b6478] leading-relaxed">
