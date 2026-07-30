@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "@/components/mode-toggle";
 
 
 
@@ -20,9 +21,9 @@ export default function Sidebar() {
 
 
     return (
-        <aside className="fixed left-0 top-0 flex h-screen w-[260px] flex-shrink-0 flex-col border-r border-white/[0.08] bg-black px-4 py-6 backdrop-blur-[18px]">
+        <aside className="fixed left-0 top-0 flex h-screen w-[260px] flex-shrink-0 flex-col border-r border-black/[0.08] dark:border-white/[0.08] bg-white dark:bg-black px-4 py-6 backdrop-blur-[18px]">
             {/* Top: user info */}
-            <div className="mb-8 flex items-center gap-3 border-b border-white/[0.08] pb-6">
+            <div className="mb-8 flex items-center gap-3 border-b border-black/[0.08] dark:border-white/[0.08] pb-6">
                 <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#4F7DF3] to-[#9B5DE5] text-sm font-semibold text-white shadow-[0_0_16px_rgba(93,138,245,0.4)]">
                     {
                         session?.user?.name
@@ -34,13 +35,14 @@ export default function Sidebar() {
                     }
                 </div>
                 <div className="min-w-0">
-                    <p className="truncate text-[14px] font-semibold text-[#F2F4F8]">
+                    <p className="truncate text-[14px] font-semibold text-[#1A1D24] dark:text-[#F2F4F8]">
                         {session?.user?.name || "John Doe"}
                     </p>
                     <p className="truncate text-[12px] text-[#6B7180]">
                         {session?.user?.email}
                     </p>
                 </div>
+                <ModeToggle/>
             </div>
 
             {/* Middle: navigation links */}
@@ -52,8 +54,8 @@ export default function Sidebar() {
                 <Link
                     href="/landingPage"
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors ${pathname === "/landingPage"
-                        ? "bg-white/[0.06] text-[#F2F4F8]"
-                        : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                        ? "bg-black/[0.06] dark:bg-white/[0.06] text-[#1A1D24] dark:text-[#F2F4F8]"
+                        : "text-[#565C6B] dark:text-[#A8AEBB] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-[#1A1D24] dark:hover:text-[#F2F4F8]"
                         }`}
                 >
                     <Home size={17} className={pathname === "/root" ? "text-[#38E1F2]" : "text-[#6B7180]"} />
@@ -63,8 +65,8 @@ export default function Sidebar() {
                 <Link
                     href="/root"
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors ${pathname === "/root"
-                        ? "bg-white/[0.06] text-[#F2F4F8]"
-                        : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                        ? "bg-black/[0.06] dark:bg-white/[0.06] text-[#1A1D24] dark:text-[#F2F4F8]"
+                        : "text-[#565C6B] dark:text-[#A8AEBB] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-[#1A1D24] dark:hover:text-[#F2F4F8]"
                         }`}
                 >
                     <Upload
@@ -76,8 +78,8 @@ export default function Sidebar() {
                 <Link
                     href="/chat"
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors ${pathname === "/chat"
-                            ? "bg-white/[0.06] text-[#F2F4F8]"
-                            : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                            ? "bg-black/[0.06] dark:bg-white/[0.06] text-[#1A1D24] dark:text-[#F2F4F8]"
+                            : "text-[#565C6B] dark:text-[#A8AEBB] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-[#1A1D24] dark:hover:text-[#F2F4F8]"
                         }`}
                 >
                     <LayoutDashboard
@@ -90,8 +92,8 @@ export default function Sidebar() {
                 <Link
                     href="/history"
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors ${pathname === "/history"
-                        ? "bg-white/[0.06] text-[#F2F4F8]"
-                        : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                        ? "bg-black/[0.06] dark:bg-white/[0.06] text-[#1A1D24] dark:text-[#F2F4F8]"
+                        : "text-[#565C6B] dark:text-[#A8AEBB] hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-[#1A1D24] dark:hover:text-[#F2F4F8]"
                         }`}
                 >
                     <History size={17} className={pathname === "/history" ? "text-[#38E1F2]" : "text-[#6B7180]"} />
@@ -100,7 +102,7 @@ export default function Sidebar() {
 
                 <a
                     href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium text-[#A8AEBB] transition-colors hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium text-[#565C6B] dark:text-[#A8AEBB] transition-colors hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-[#1A1D24] dark:hover:text-[#F2F4F8]"
                 >
                     <Settings size={17} className="text-[#6B7180]" />
                     Settings
@@ -108,7 +110,7 @@ export default function Sidebar() {
             </nav>
 
             {/* Bottom: logout */}
-            <div className="border-t border-white/[0.08] pt-4">
+            <div className="border-t border-black/[0.08] dark:border-white/[0.08] pt-4">
                 <button onClick={handleLogout} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium text-[#F87171] transition-colors hover:bg-[rgba(248,113,113,0.1)]">
                     <LogOut size={17} />
                     Logout
