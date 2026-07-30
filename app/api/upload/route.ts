@@ -1,5 +1,7 @@
 
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -7,6 +9,9 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const file = formData.get("file") as File;
     const pdfName = file?.name || "unknown.pdf";
+    const session = await auth.api.getSession({
+      headers:await headers()
+    })
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -33,6 +38,7 @@ export async function POST(req: NextRequest) {
       data: {
         name: pdfName,
         text: extractedText, 
+        userId: session?.user?.id || null,
       },
     });
 
