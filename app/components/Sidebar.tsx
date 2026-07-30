@@ -18,7 +18,7 @@ export default function Sidebar() {
         router.push('/login')
     }
 
-   
+
     return (
         <aside className="fixed left-0 top-0 flex h-screen w-[260px] flex-shrink-0 flex-col border-r border-white/[0.08] bg-black px-4 py-6 backdrop-blur-[18px]">
             {/* Top: user info */}
@@ -63,8 +63,8 @@ export default function Sidebar() {
                 <Link
                     href="/root"
                     className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors ${pathname === "/root"
-                            ? "bg-white/[0.06] text-[#F2F4F8]"
-                            : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                        ? "bg-white/[0.06] text-[#F2F4F8]"
+                        : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
                         }`}
                 >
                     <Upload
@@ -73,13 +73,19 @@ export default function Sidebar() {
                     />
                     Upload Paper
                 </Link>
-                <a
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium text-[#A8AEBB] transition-colors hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                <Link
+                    href="/chat"
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-colors ${pathname === "/chat"
+                            ? "bg-white/[0.06] text-[#F2F4F8]"
+                            : "text-[#A8AEBB] hover:bg-white/[0.05] hover:text-[#F2F4F8]"
+                        }`}
                 >
-                    <LayoutDashboard size={17} className="text-[#6B7180]" />
-                    Dashboard
-                </a>
+                    <LayoutDashboard
+                        size={17}
+                        className={pathname === "/chat" ? "text-[#38E1F2]" : "text-[#6B7180]"}
+                    />
+                    Chat
+                </Link>
 
                 <Link
                     href="/history"
