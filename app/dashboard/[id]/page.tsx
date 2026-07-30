@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/db';
-import React from 'react'
+import Link from "next/link";
+import { MessageSquare } from "lucide-react";
+import ErrorRedirect from "./ErrorRedirect";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
@@ -14,19 +16,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   });
 
   if (!data) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#05070d] text-[#F2F4F8]">
-        <div className="text-center">
-          <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/5 text-lg text-[#6B7180]">
-            📄
-          </div>
-          <p className="text-[14.5px] font-medium text-[#D7DAE2]">No results found</p>
-          <p className="mt-1 text-[13px] text-[#6B7180]">
-            This paper hasn&apos;t finished processing yet, or the id is invalid.
-          </p>
-        </div>
-      </div>
-    )
+    return <ErrorRedirect />;
   }
 
   return (
@@ -88,7 +78,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             </h2>
             {data?.contributions?.length ? (
               <ul className="space-y-2">
-                {data.contributions.map((item, i) => (
+                {data.contributions.map((item: string, i: number) => (
                   <li key={i} className="flex gap-2 text-[14px] leading-relaxed text-[#D7DAE2]">
                     <span className="mt-[7px] h-1 w-1 flex-shrink-0 rounded-full bg-[#34D399]" />
                     {item}
@@ -107,7 +97,7 @@ const page = async ({ params }: { params: { id: string } }) => {
             </h2>
             {data?.limitations?.length ? (
               <ul className="space-y-2">
-                {data.limitations.map((item, i) => (
+                {data.limitations.map((item: string, i: number) => (
                   <li key={i} className="flex gap-2 text-[14px] leading-relaxed text-[#D7DAE2]">
                     <span className="mt-[7px] h-1 w-1 flex-shrink-0 rounded-full bg-[#F87171]" />
                     {item}
@@ -125,16 +115,16 @@ const page = async ({ params }: { params: { id: string } }) => {
           <h2 className="mb-4 flex items-center gap-2 text-[13px] font-semibold uppercase tracking-wider text-[#A78BFA]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#A78BFA]" />
             Flashcards
-            {!!data?.flashcards?.length && (
+            {!!data?.flashcards && Array.isArray(data.flashcards) && data.flashcards.length > 0 && (
               <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10.5px] normal-case tracking-normal text-[#6B7180]">
                 {data.flashcards.length}
               </span>
             )}
           </h2>
 
-          {data?.flashcards?.length ? (
+          {data?.flashcards && Array.isArray(data.flashcards) && data.flashcards.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {data.flashcards.map((card, index) => (
+              {data.flashcards.map((card: any, index: number) => (
                 <details
                   key={index}
                   className="group rounded-2xl border border-white/[0.08] bg-[rgba(18,22,34,0.55)] p-5 backdrop-blur-[18px] transition-colors open:border-[rgba(155,93,229,0.35)]"
@@ -164,7 +154,7 @@ const page = async ({ params }: { params: { id: string } }) => {
         </section>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
