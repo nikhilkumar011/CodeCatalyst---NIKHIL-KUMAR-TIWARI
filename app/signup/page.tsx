@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useRef, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Mail, Lock, User, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -228,7 +228,7 @@ export default function SignUpPage() {
         confirmPassword?: string;
         agreed?: string;
     }>({});
-    const {signup} = useAuthStore();
+    const { signup } = useAuthStore();
     const cardRef = useRef<HTMLDivElement>(null);
     const [glow, setGlow] = useState({ x: 50, y: 50 });
 
@@ -259,29 +259,49 @@ export default function SignUpPage() {
         e.preventDefault();
         if (!validate()) return;
         setLoading(true);
-        signup({email,password,fullName})
+        signup({ email, password, fullName })
         setTimeout(() => setLoading(false), 1800);
     };
 
     const handleGoogleLogin = async () => {
-            const data = await authClient.signIn.social({
-                provider: "google",
-                callbackURL: "/landingPage",
-            })
-        }
+        const data = await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/landingPage",
+        })
+    }
 
-    const cardVariants = {
-        hidden: { opacity: 0, y: 24, scale: 0.98 },
+    const cardVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: 24,
+            scale: 0.98,
+        },
         visible: {
             opacity: 1,
             y: 0,
             scale: 1,
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.06, delayChildren: 0.15 },
+            transition: {
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                staggerChildren: 0.06,
+                delayChildren: 0.15,
+            },
         },
     };
-    const fieldVariants = {
-        hidden: { opacity: 0, y: 10 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+
+    const fieldVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: 10,
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.4,
+                ease: "easeOut",
+            },
+        },
     };
 
     return (
