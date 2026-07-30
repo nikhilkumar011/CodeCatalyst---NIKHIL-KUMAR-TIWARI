@@ -7,7 +7,7 @@ import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import Link from 'next/link'
 import { useAuthStore } from "@/stores/useAuthStore";
 import { authClient } from "@/lib/auth-client";
-
+import { useRouter } from "next/navigation";
 /**
  * FUTURISTIC LOGIN — "Access Constellation"
  * ------------------------------------------------------------
@@ -214,6 +214,7 @@ export default function Home() {
     const cardRef = useRef<HTMLDivElement>(null);
     const [glow, setGlow] = useState({ x: 50, y: 50 });
     const { login } = useAuthStore();
+    const router = useRouter();
 
     const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         const el = cardRef.current;
@@ -259,8 +260,9 @@ export default function Home() {
     const handleGoogleLogin = async () => {
         const data = await authClient.signIn.social({
             provider: "google",
-
+            callbackURL: "/root",
         })
+      
     }
 
     return (
